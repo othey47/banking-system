@@ -1,86 +1,87 @@
 
-
-
 class Account:
-    # class variable: id counter
+    # # Class variable to auto-increment account IDs for each new account
     _id_counter = 1
 
     def __init__(self, name, balance):
-        # 1 validate name
-        #   - must be string
+        """
+        => Initialize a new account object.
+        => Parameters:
+         - name (str): Customer name, must be non-empty string.
+         - balance (int or float): Initial balance, must be positive.
+        => Raises:
+         - ValueError: If name or balance is invalid.
+        """
+        # Validate name: must be string and not empty.
         if not isinstance(name, str):
-            raise ValueError("Invalid name")
-        #   - must not be empty
-        if not name:
-            raise ValueError("Empty name")
+            raise ValueError("Invalid name: must be string")
+        if not name.strip(): # strip() to avoid whitespace-only names.
+            raise ValueError("Invalid name: cannot be empty")
         
-        # 2 validate balance
-        #   - must not be negative
-        if balance < 1:
-            raise ValueError("Invalid balance, blance must be positive")
+        # Validate balance: must be positive.
+        if balance <= 0:
+            raise ValueError("Invalid balance: must non-negative")
         
-        # 4 assign private attributes:
-        #   __name
+        # Assign private attributes.
         self.__name = name
-        #   __balance
         self.__balance = balance
-        #   __id
         self.__id = Account._id_counter
         
-        # 5 increment class counter
+        # Increment class-level ID counter.
         Account._id_counter += 1
 
 
-    # getter for id
+    # Getter for account ID.
     def get_id(self):
+        """Return the unique account ID"""
         return self.__id
-    # getter for name
+    
+    # Getter for account name.
     def get_name(self):
+        """Return the account holder's name"""
         return self.__name
-    # getter for balance
+    
+    # Getter for account balance.
     def get_balance(self):
+        """Return the current account balance"""
         return self.__balance
 
 
     def deposit(self, amount):
-        # 1 validate amount
-        #  - must be intger or float
+        """
+        => Deposit money into the account.
+        => Parameters:
+         - amount (int or float): Amount to deposit.
+        => Raises:
+         - ValueError: If amount is not a number or is non-negative
+        """
         if not isinstance(amount, (int, float)):
-            raise ValueError("Invalid amount")
-       
-        # 2 validate amount
-        #   - must be positive
-        if amount < 1:
-            raise ValueError("Invalid amount, amount must be positive.")
-        # 3 add amount to balance
+            raise ValueError("Invalid amount: must be a number")
+        if amount <= 0:
+            raise ValueError("Invalid amount: must be positive.")
+        
+        # Add amount to balance. 
         self.__balance += amount
 
 
     def withdraw(self, amount):
-        # 1 validate amount
-        #  - must be intger or float
+        """
+        => Withdraw money from the account.
+        => Parameters:
+         - amount (int or float): Amount to withdraw.
+        => Raises:
+         - ValueError: If amount is invalid or exceeds balance
+        """
         if not isinstance(amount, (int, float)):
-            raise ValueError("Invalid amount")
-
-        # 2 validate amount
-        #   - must be positive
-        if amount < 1:
-            raise ValueError("Invalid amount, amount must be positive.")
-        
-        # 3 check if amount > balance
-        #   - raise error if not enough
+            raise ValueError("Invalid amount: must be a number")
+        if amount <= 0:
+            raise ValueError("Invalid amount: must be positive")
         if amount > self.__balance:
-            raise ValueError()
+            raise ValueError("Insufficient balance")
         
-        # 4 subtract amount from balance
+        # Subtract amount from balance
         self.__balance -= amount
 
     def __str__(self):
-         return f"Account ID: {self.__id}, Name: {self.__name}, Balance: {self.__balance}"
-
-
-acc = Account("Ali", 100.50)
-acc.deposit(50.25)
-acc.withdraw(20.10)
-print(acc.get_balance())
-print(acc)
+        """Return a formatted string with account info""" 
+        return f"Account ID: {self.__id}, Name: {self.__name}, Balance: {self.__balance:.2f}"
