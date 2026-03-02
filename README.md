@@ -17,26 +17,29 @@ banking-system-oop/
 ├─ .gitignore                  
 │
 ├─ main.py                     # Entry point (CLI menu)
-│
-├─ accounts/                   
-│   ├─ __init__.py
-│   ├─ base_account.py         
-│   ├─ savings_account.py      
-│   └─ checking_account.py     
+│                   
+├─ account.py         
+├─ savings.py      
+├─ checking.py     
 │
 ├─ utils/                      
-│   ├─ __init__.py
-│   └─ validators.py           
-│
-├─ tests/                      
-│   ├─ __init__.py
-│   └─ test_accounts.py        
+│ 
+├─ tests.py/                             
 │
 └─ data/                       
     └─ accounts.json           
 '''
 
 ## How to Use
-  1. Clone repo
+  1. **Clone repository**
+    ```bash
+    git clone https://github.com/othey47/banking-system.git
+    cd banking-system-oop
   2. Run main.py
-  3. Follow menua
+    python main.py or python3 main.py
+  3. Follow menu
+    -> Create accounts 
+    -> Deposit or withdraw money
+    -> Display account info
+    -> Apply interest (Savings)
+    -> Use overdraft (Checking)
