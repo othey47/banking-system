@@ -9,26 +9,26 @@ A simple banking system designed to practice Object-Oriented Programming (OOP) c
  - Error handling
 
 ## Project Structure
-'''
-banking-system-oop/
-│
-├─ README.md                   
-├─ requirements.txt            
-├─ .gitignore                  
-│
-├─ main.py                     # Entry point (CLI menu)
-│                   
-├─ account.py         
-├─ savings.py      
-├─ checking.py     
-│
-├─ utils/                      
-│ 
-├─ tests.py/                             
-│
-└─ data/                       
-    └─ accounts.json           
-'''
+```
+ banking-system-oop/
+ │
+ ├─ README.md                   
+ ├─ requirements.txt            
+ ├─ .gitignore                  
+ │
+ ├─ main.py                     # Entry point (CLI menu)
+ │                   
+ ├─ account.py         
+ ├─ savings.py      
+ ├─ checking.py     
+ │
+ ├─ utils/                      
+ │ 
+ ├─ tests.py/                             
+ │
+ └─ data/                       
+     └─ accounts.json           
+```
 
 ## How to Use
   1. **Clone repository**
