@@ -4,17 +4,17 @@ from account import Account
 
 class SavingsAccount(Account):
     """
-    => SavingsAccount class inherits from Account.
-    => Adds an interest rate feature and allows internet application.
+    SavingsAccount class inherits from Account.
+    Adds an interest rate feature and allows internet application.
     """
     def __init__(self, name, balance, interest_rate):
         """
-        => Initialize a new SavingsAccount object.
-        => Parameters:
+        Initialize a new SavingsAccount object.
+        Parameters:
          - name (str): Customer name.
          - balance (int or float): Initial balance.
          - interest_rate (int or float): Interest rate (as decimal, e.g., 0.05 for 5%).
-        => Raises:
+        Raises:
          - ValueError: If interest_rate is not a number or <= 0
         """
         super().__init__(name, balance)
@@ -35,8 +35,8 @@ class SavingsAccount(Account):
     # Apply interset to balance
     def apply_interest(self):
         """
-        => Apply interset to the current balance.
-        => Uses the formula: balance += balance * interset_rate
+        Apply interset to the current balance.
+        Uses the formula: balance += balance * interset_rate
         """
         interest = self.get_balance() * self.__interest_rate
         self.deposit(interest)

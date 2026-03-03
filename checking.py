@@ -1,17 +1,17 @@
 from account import Account
 class CheckingAccount(Account):
     """
-    => CheckingAccount class inherits from Account.
-    => Adds an overdraft feature allowing withdrawals beyond the balance up to a limit. 
+    CheckingAccount class inherits from Account.
+    Adds an overdraft feature allowing withdrawals beyond the balance up to a limit. 
     """
     def __init__(self, name, balance, overdraft_limit):
         """
-        => Initialize a new CheckingAccount object.
-        => Parameters:
+        Initialize a new CheckingAccount object.
+        Parameters:
          - name (str): Customer name
          - balance (int or float): Initial balance
          - overdraft_limit (int or float): Maximum allowed overdraft
-        => Raises:
+        Raises:
          - ValueError: If overdraft_limit is not a number or <= 0 
         """
         super().__init__(name, balance)
@@ -34,10 +34,10 @@ class CheckingAccount(Account):
     # Withdraw method handling overdraft
     def withdraw(self, amount):
         """
-        => Withdraw money from the account, using balance first, then overdraft if needed.
-        => Parameters:
+        Withdraw money from the account, using balance first, then overdraft if needed.
+        Parameters:
          - amount (int or float): Amount to withdraw
-        => Raises:
+        Raises:
          - ValueError: If amount is invalid or execeeds available funds
         """
         if not isinstance(amount, (int, float)):

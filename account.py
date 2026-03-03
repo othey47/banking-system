@@ -5,11 +5,11 @@ class Account:
 
     def __init__(self, name, balance):
         """
-        => Initialize a new account object.
-        => Parameters:
+        Initialize a new account object.
+        Parameters:
          - name (str): Customer name, must be non-empty string.
          - balance (int or float): Initial balance, must be positive.
-        => Raises:
+        Raises:
          - ValueError: If name or balance is invalid.
         """
         # Validate name: must be string and not empty.
@@ -49,10 +49,10 @@ class Account:
 
     def deposit(self, amount):
         """
-        => Deposit money into the account.
-        => Parameters:
+        Deposit money into the account.
+        Parameters:
          - amount (int or float): Amount to deposit.
-        => Raises:
+        Raises:
          - ValueError: If amount is not a number or is non-negative
         """
         if not isinstance(amount, (int, float)):
@@ -66,10 +66,10 @@ class Account:
 
     def withdraw(self, amount):
         """
-        => Withdraw money from the account.
-        => Parameters:
+        Withdraw money from the account.
+        Parameters:
          - amount (int or float): Amount to withdraw.
-        => Raises:
+        Raises:
          - ValueError: If amount is invalid or exceeds balance
         """
         if not isinstance(amount, (int, float)):
