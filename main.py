@@ -1,7 +1,7 @@
 """
 Entry point for the Banking System CLI application.
 
-This module provides a simple command-line interface (CLI) to manage different types of bank accounts:
+This module provides a command-line interface (CLI) to manage different types of bank accounts:
  - Create accounts
  - Deposit money
  - Withdraw money
@@ -27,15 +27,48 @@ class Display:
      - Persists data to JSON file via Storage
     """
     def __init__(self):
-        # Dictionary to store accounts
-        # Key   -> account ID
-        # Value -> Account object
+        '''
+        Initialize Display instance.
+         - Creates an empty accounts dictionary.
+         - Initializes the storage object.
+         - Loads previously saved accounts from JSON.
+        '''
+        # Key: account ID, Value: Account object
         self.accounts = {}
         # Storage object for JSON persistence
         self.storage = Storage()
+        # Load saved account at startup
+        self.load_accounts()
     
+    def load_accounts(self):
+        """
+        Load accounts from storage (JSON file) into memory.
+        Restores account objects with their type, balance, and ID. 
+        """
+        data = self.storage.load()
+
+        for acc in data.get("accounts", []):
+
+            if acc['type'] == "savings":
+                account = SavingsAccount(
+                    acc['name'],
+                    acc['balance'],
+                    acc['interest_rate']
+                )
+            elif acc['type'] == "checking":
+                account = CheckingAccount(
+                    acc['name'],
+                    acc['balance'],
+                    acc['overdraft_limit']
+                )
+            
+            # Restore original ID to maintain consistency 
+            account.set_id(acc['id']) 
+            self.accounts[account.get_id()] = account 
+
+
     def menu(self):
-        """Display the main menu options."""
+        """Display the main menu options to the user."""
         print(f"{'=' * 20} Menu {'=' * 20}")
         print("  1. Create account.")
         print("  2. Deposit.")
@@ -58,7 +91,7 @@ class Display:
 
         acc_type = input("Enter account type (savings/checking): ").lower()
         name = input("Enter name: ")
-        balance = float(input("Enter balance:"))
+        balance = float(input("Enter balance: "))
 
         if acc_type == "savings":
             rate = float(input("Enter interest rate: "))
@@ -70,7 +103,7 @@ class Display:
             print("Invalid account type.")
             return False
         
-        # Store account using it's unique ID
+        # Store account in memory
         self.accounts[account.get_id()] = account
         print("Account created successfully.")
         return True
@@ -107,14 +140,17 @@ class Display:
             return False
     
     def show_account(self):
-        """Display all stored accounts."""
-        for acc in self.accounts.values():
-            print(acc)
+        """Display all stored accounts. if no accounts exist, print a message."""
+        if not self.accounts:
+            print("accounts not found.")
+        else:
+            for acc in self.accounts.values():
+                print(acc)
 
     def save_all_accounts(self):
         """
-        Save all account data to a JSON file using Storage.
-        Converts all account objects to dictionaries for persistence.
+        Persist all account data to a JSON file.
+        Converts account objects to dictionaries for storage.
         """
         data = {
             "accounts": [acc.to_dict() for acc in self.accounts.values()]
@@ -139,7 +175,7 @@ class Display:
             account.apply_interest()
             return True
         else:
-            print("Interset only available for SavingsAccount.")
+            print("Interest only available for SavingsAccount.")
             return False
 
     def control(self):
@@ -147,7 +183,7 @@ class Display:
         Main application loop.
 
         Continuously displays the menu and executes user-selected operations until exit.
-        Ensures data is saved after every successful change.
+        Automatically saves data after every successful operation.
         """
         while True:
             self.menu()
@@ -172,3 +208,4 @@ class Display:
                 break
             else:
                 print("Invalid choice: Please try again.") 
+
